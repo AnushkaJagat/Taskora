@@ -1,5 +1,6 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { useEffect, useState } from "react";
 import { ArrowLeft, CheckCircle2 } from "lucide-react";
 import { useRouter } from "next/navigation";
@@ -47,7 +48,7 @@ export default function ProfilePage() {
         const userId = currentUser.id || currentUser._id;
 
         const response = await fetch(
-          `http://localhost:3004/auth/profile/${userId}`
+          `${API_URL}/auth/profile/${userId}`
         );
 
         const data = await response.json();
@@ -91,7 +92,7 @@ export default function ProfilePage() {
       const userId = user._id || user.id;
 
       const response = await fetch(
-        `http://localhost:3004/auth/profile/${userId}`,
+        `${API_URL}/auth/profile/${userId}`,
         {
           method: "PUT",
           headers: {

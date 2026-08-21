@@ -1,5 +1,6 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { useEffect, useState } from "react";
 import Link from "next/link";
 import { CheckCircle2, Circle, Clock3, FolderKanban, ListTodo, ArrowRight,} from "lucide-react";
@@ -64,14 +65,14 @@ export default function DashboardPage() {
         const [tasksResponse, projectsResponse] =
           await Promise.all([
             fetch(
-              `http://localhost:3004/tasks?userId=${encodedUserId}`,
+              `${API_URL}/tasks?userId=${encodedUserId}`,
               {
                 cache: "no-store",
               }
             ),
 
             fetch(
-              `http://localhost:3004/projects?userId=${encodedUserId}`,
+              `${API_URL}/projects?userId=${encodedUserId}`,
               {
                 cache: "no-store",
               }

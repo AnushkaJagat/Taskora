@@ -1,5 +1,6 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import Sidebar from "../../components/layout/Sidebar";
@@ -86,7 +87,7 @@ export default function ProjectsPage() {
       }
 
       const response = await fetch(
-        `http://localhost:3004/projects?userId=${encodeURIComponent(
+        `${API_URL}/projects?userId=${encodeURIComponent(
           userId
         )}`,
         {

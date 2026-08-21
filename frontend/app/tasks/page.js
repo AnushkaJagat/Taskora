@@ -1,7 +1,7 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { useEffect, useState } from "react";
-
 import Sidebar from "../../components/layout/Sidebar";
 import TaskToolbar from "../../components/tasks/TaskToolbar";
 import TaskSection from "../../components/tasks/TaskSection";
@@ -186,7 +186,7 @@ export default function TasksPage() {
 
       const response =
         await fetch(
-          `http://localhost:3004/tasks?userId=${encodeURIComponent(
+          `${API_URL}/tasks?userId=${encodeURIComponent(
             userId
           )}`,
           {
@@ -281,7 +281,7 @@ export default function TasksPage() {
 
       const response =
         await fetch(
-          `http://localhost:3004/tasks/${taskId}?userId=${encodeURIComponent(
+          `${API_URL}/tasks/${taskId}?userId=${encodeURIComponent(
             userId
           )}`,
           {

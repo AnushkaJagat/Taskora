@@ -1,9 +1,9 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { useEffect, useState } from "react";
 import { ArrowLeft, CalendarDays } from "lucide-react";
 import { useParams, useRouter } from "next/navigation";
-
 import Sidebar from "../../../components/layout/Sidebar";
 
 const getPriorityClass = (priority) => {
@@ -112,7 +112,7 @@ export default function ProjectDetailPage() {
           // Fetch project
           const projectResponse =
             await fetch(
-              `http://localhost:3004/projects/${projectId}?userId=${encodeURIComponent(
+              `${API_URL}/projects/${projectId}?userId=${encodeURIComponent(
                 userId
               )}`,
               {
@@ -133,7 +133,7 @@ export default function ProjectDetailPage() {
           // to this project
           const tasksResponse =
             await fetch(
-              `http://localhost:3004/tasks/project/${projectId}?userId=${encodeURIComponent(
+              `${API_URL}/tasks/project/${projectId}?userId=${encodeURIComponent(
                 userId
               )}`,
               {

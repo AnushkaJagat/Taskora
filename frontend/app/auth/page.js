@@ -23,10 +23,12 @@ export default function AuthPage() {
     setLoading(true);
 
     try {
+      const API_URL = process.env.NEXT_PUBLIC_API_URL;
+
       const endpoint =
-        mode === "login"
-          ? "http://localhost:3004/auth/login"
-          : "http://localhost:3004/auth/register";
+       mode === "login"
+       ? `${API_URL}/auth/login`
+       : `${API_URL}/auth/register`;
 
       const body =
         mode === "login"

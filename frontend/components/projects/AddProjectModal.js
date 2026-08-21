@@ -1,14 +1,11 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { useState } from "react";
 import { X } from "lucide-react";
 
-export default function AddProjectModal({
-  onClose,
-  onAddProject,
-  editProject = null,
-  onUpdateProject,
-}) {
+export default function AddProjectModal({ onClose, onAddProject, editProject = null, onUpdateProject,}) {
+  
   const [name, setName] = useState(
     editProject?.name || ""
   );
@@ -103,7 +100,7 @@ export default function AddProjectModal({
       // EDIT PROJECT
       if (editProject) {
         const response = await fetch(
-          `http://localhost:3004/projects/${editProject.id}?userId=${encodeURIComponent(
+          `${API_URL}/projects/${editProject.id}?userId=${encodeURIComponent(
             userId
           )}`,
           {
@@ -136,7 +133,7 @@ export default function AddProjectModal({
       // CREATE PROJECT
       else {
         const response = await fetch(
-          "http://localhost:3004/projects",
+          `${API_URL}/projects`,
           {
             method: "POST",
             headers: {
@@ -182,39 +179,14 @@ export default function AddProjectModal({
 
   return (
     <div
-      className="
-        fixed
-        inset-0
-        z-50
-        flex
-        items-center
-        justify-center
-        bg-black/40
-        px-4
-      "
+      className=" fixed inset-0 z-50 flex items-center justify-center bg-black/40 px-4"
     >
       <div
-        className="
-          w-full
-          max-w-lg
-          rounded-xl
-          border
-          theme-border
-          theme-surface
-          shadow-xl
-        "
+        className=" w-full max-w-lg rounded-xl border theme-border theme-surface shadow-xl"
       >
         {/* Header */}
         <div
-          className="
-            flex
-            items-center
-            justify-between
-            border-b
-            theme-border
-            px-5
-            py-4
-          "
+          className=" flex items-center justify-between border-b theme-border px-5 py-4"
         >
           <h2 className="text-lg font-semibold theme-text">
             {editProject
@@ -225,14 +197,7 @@ export default function AddProjectModal({
           <button
             type="button"
             onClick={onClose}
-            className="
-              rounded-md
-              p-1
-              theme-text-secondary
-              transition
-              hover:bg-black/5
-              dark:hover:bg-white/10
-            "
+            className=" rounded-md p-1 theme-text-secondary transition hover:bg-black/5 dark:hover:bg-white/10"
             aria-label="Close"
           >
             <X size={19} />
@@ -247,13 +212,7 @@ export default function AddProjectModal({
           {/* Project Name */}
           <div>
             <label
-              className="
-                mb-1.5
-                block
-                text-sm
-                font-medium
-                theme-text
-              "
+              className=" mb-1.5 block text-sm font-medium theme-text"
             >
               Project name
             </label>
@@ -265,33 +224,14 @@ export default function AddProjectModal({
                 setName(e.target.value)
               }
               placeholder="Enter project name"
-              className="
-                w-full
-                rounded-lg
-                border
-                theme-border
-                theme-surface
-                px-3
-                py-2.5
-                text-sm
-                theme-text
-                outline-none
-                focus:ring-1
-                focus:ring-gray-400
-              "
+              className=" w-full rounded-lg border theme-border theme-surface px-3 py-2.5 text-sm theme-text outline-none focus:ring-1 focus:ring-gray-400"
             />
           </div>
 
           {/* Description */}
           <div>
             <label
-              className="
-                mb-1.5
-                block
-                text-sm
-                font-medium
-                theme-text
-              "
+              className=" mb-1.5 block text-sm font-medium theme-text"
             >
               Description
             </label>
@@ -305,20 +245,7 @@ export default function AddProjectModal({
               }
               placeholder="Add a short description"
               rows={3}
-              className="
-                w-full
-                resize-none
-                rounded-lg
-                border
-                theme-border
-                theme-surface
-                px-3
-                py-2.5
-                text-sm
-                theme-text
-                outline-none
-                focus:ring-1
-                focus:ring-gray-400
+              className=" w-full resize-none rounded-lg border theme-border theme-surface px-3 py-2.5 text-sm theme-text outline-none focus:ring-1 focus:ring-gray-400
               "
             />
           </div>
@@ -326,13 +253,7 @@ export default function AddProjectModal({
           {/* Status */}
           <div>
             <label
-              className="
-                mb-1.5
-                block
-                text-sm
-                font-medium
-                theme-text
-              "
+              className=" mb-1.5 block text-sm font-medium theme-text"
             >
               Status
             </label>
@@ -342,18 +263,7 @@ export default function AddProjectModal({
               onChange={(e) =>
                 setStatus(e.target.value)
               }
-              className="
-                w-full
-                rounded-lg
-                border
-                theme-border
-                theme-surface
-                px-3
-                py-2.5
-                text-sm
-                theme-text
-                outline-none
-              "
+              className=" w-full rounded-lg border theme-border theme-surface px-3 py-2.5 text-sm theme-text outline-none"
             >
               <option value="planning">
                 Planning
@@ -372,13 +282,7 @@ export default function AddProjectModal({
           {/* Due Date */}
           <div>
             <label
-              className="
-                mb-1.5
-                block
-                text-sm
-                font-medium
-                theme-text
-              "
+              className=" mb-1.5 block text-sm font-medium theme-text "
             >
               Due date
             </label>
@@ -389,17 +293,7 @@ export default function AddProjectModal({
               onChange={(e) =>
                 setDueDate(e.target.value)
               }
-              className="
-                w-full
-                rounded-lg
-                border
-                theme-border
-                theme-surface
-                px-3
-                py-2.5
-                text-sm
-                theme-text
-                outline-none
+              className=" w-full rounded-lg border theme-border theme-surface px-3 py-2.5 text-sm theme-text outline-none
               "
             />
           </div>
@@ -413,30 +307,14 @@ export default function AddProjectModal({
 
           {/* Buttons */}
           <div
-            className="
-              flex
-              justify-end
-              gap-2
-              pt-2
+            className=" flex justify-end gap-2 pt-2
             "
           >
             <button
               type="button"
               onClick={onClose}
               disabled={isSaving}
-              className="
-                rounded-lg
-                border
-                theme-border
-                px-4
-                py-2
-                text-sm
-                theme-text
-                transition
-                hover:bg-black/5
-                dark:hover:bg-white/10
-                disabled:opacity-50
-              "
+              className=" rounded-lg border theme-border px-4 py-2 text-sm theme-text transition hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-50"
             >
               Cancel
             </button>
@@ -444,19 +322,7 @@ export default function AddProjectModal({
             <button
               type="submit"
               disabled={isSaving}
-              className="
-                rounded-lg
-                bg-black
-                px-4
-                py-2
-                text-sm
-                font-medium
-                text-white
-                transition
-                hover:bg-gray-800
-                disabled:cursor-not-allowed
-                disabled:opacity-50
-              "
+              className=" rounded-lg bg-black px-4 py-2 text-sm font-medium text-white transition hover:bg-gray-800 disabled:cursor-not-allowed disabled:opacity-50 "
             >
               {isSaving
                 ? "Saving..."

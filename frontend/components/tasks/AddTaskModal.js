@@ -1,16 +1,12 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { X } from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function AddTaskModal({
-  onClose,
-  onAddTask,
-  editTask = null,
-  onUpdateTask,
-}) {
-  const isEditing = Boolean(editTask);
+export default function AddTaskModal({ onClose, onAddTask, editTask = null, onUpdateTask,}) {
 
+  const isEditing = Boolean(editTask);
   const [title, setTitle] = useState("");
 
   const [priority, setPriority] = useState(() => {
@@ -122,7 +118,7 @@ export default function AddTaskModal({
         }
 
         const response = await fetch(
-          `http://localhost:3004/projects?userId=${encodeURIComponent(
+          `${API_URL}/projects?userId=${encodeURIComponent(
             userId
           )}`,
           {
@@ -246,10 +242,10 @@ export default function AddTaskModal({
 
     try {
       const url = isEditing
-        ? `http://localhost:3004/tasks/${editTask.id}?userId=${encodeURIComponent(
+        ? `${API_URL}/tasks/${editTask.id}?userId=${encodeURIComponent(
             userId
           )}`
-        : "http://localhost:3004/tasks";
+        : `${API_URL}/tasks`;
 
       const response = await fetch(
         url,

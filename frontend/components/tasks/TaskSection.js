@@ -1,29 +1,14 @@
 "use client";
 
-import {
-  ChevronDown,
-  ChevronRight,
-  MoreHorizontal,
-  Plus,
-  Pencil,
-  Trash2,
-} from "lucide-react";
-
+import API_URL from "@/lib/api";
+import { ChevronDown, ChevronRight, MoreHorizontal, Plus, Pencil, Trash2,} from "lucide-react";
 import { useEffect, useState } from "react";
 
-export default function TaskSection({
-  title,
-  tasks,
-  onDeleteTask,
-  onEditTask,
-  onUpdateTask,
-  onAddTask,
-  visibleFields,
-}) {
+export default function TaskSection({ title, tasks, onDeleteTask, onEditTask, onUpdateTask, onAddTask, visibleFields,}) {
+
   const [isOpen, setIsOpen] = useState(true);
   const [openMenuId, setOpenMenuId] = useState(null);
   const [deletingId, setDeletingId] = useState(null);
-
   const [openMemberId, setOpenMemberId] = useState(null);
   const [members, setMembers] = useState([]);
   const [loadingMembers, setLoadingMembers] = useState(false);
@@ -93,7 +78,7 @@ export default function TaskSection({
       setLoadingMembers(true);
 
       const response = await fetch(
-        "http://localhost:3004/auth/users",
+        `${API_URL}/auth/users`,
         {
           cache: "no-store",
         }
@@ -198,10 +183,10 @@ export default function TaskSection({
         );
       }
 
-      const response = await fetch(
-        `http://localhost:3004/tasks/${task.id}?userId=${encodeURIComponent(
-          userId
-        )}`,
+     const response = await fetch(
+      `${API_URL}/tasks/${task.id}?userId=${encodeURIComponent(
+         userId
+      )}`,
         {
           method: "PATCH",
           headers: {
@@ -317,7 +302,7 @@ export default function TaskSection({
       }
 
       const response = await fetch(
-        `http://localhost:3004/tasks/${task.id}?userId=${encodeURIComponent(
+        `${API_URL}/tasks/${task.id}?userId=${encodeURIComponent(
           userId
         )}`,
         {
@@ -439,7 +424,7 @@ export default function TaskSection({
       }
 
       const response = await fetch(
-        `http://localhost:3004/tasks/${taskId}?userId=${encodeURIComponent(
+        `${API_URL}/tasks/${taskId}?userId=${encodeURIComponent(
           userId
         )}`,
         {
@@ -529,16 +514,7 @@ export default function TaskSection({
         onClick={() =>
           setIsOpen(!isOpen)
         }
-        className="
-          mb-2
-          flex
-          items-center
-          gap-1
-          text-sm
-          font-medium
-          theme-text
-        "
-      >
+        className=" mb-2 flex items-center gap-1 text-sm font-medium theme-text">
         {isOpen ? (
           <ChevronDown
             size={15}
@@ -560,29 +536,13 @@ export default function TaskSection({
 
       {isOpen && (
         <div
-          className="
-            overflow-visible
-            rounded-lg
-            border
-            theme-border
-            theme-surface
-          "
+          className=" overflow-visible rounded-lg border theme-border theme-surface"
         >
 
           {/* TABLE HEADER */}
 
           <div
-            className="
-              grid
-              border-b
-              theme-border
-              theme-surface-secondary
-              px-3
-              py-2
-              text-xs
-              font-medium
-              theme-text-secondary
-            "
+            className=" grid border-b theme-border theme-surface-secondary px-3 py-2 text-xs font-medium theme-text-secondary"
             style={{
               gridTemplateColumns:
                 gridColumns,
@@ -624,17 +584,7 @@ export default function TaskSection({
           {tasks.map((task) => (
             <div
               key={task.id}
-              className="
-                relative
-                grid
-                items-center
-                border-b
-                theme-border
-                px-3
-                py-3
-                text-sm
-                last:border-b-0
-              "
+              className=" relative grid items-center border-b theme-border px-3 py-3 text-sm last:border-b-0"
               style={{
                 gridTemplateColumns:
                   gridColumns,
@@ -692,16 +642,7 @@ export default function TaskSection({
                       assigningId ===
                       task.id
                     }
-                    className="
-                      rounded-md
-                      px-2
-                      py-1
-                      text-left
-                      theme-text-secondary
-                      hover:bg-black/5
-                      dark:hover:bg-white/10
-                      disabled:opacity-50
-                    "
+                    className=" rounded-md px-2 py-1 text-left theme-text-secondary hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-50"
                   >
                     {getMemberName(
                       task.member
@@ -713,62 +654,31 @@ export default function TaskSection({
                   {openMemberId ===
                     task.id && (
                     <div
-                      className="
-                        absolute
-                        left-0
-                        top-9
-                        z-50
-                        w-56
-                        rounded-lg
-                        border
-                        theme-border
-                        theme-surface
-                        p-2
-                        shadow-lg
-                      "
+                      className="absoluteleft-0top-9z-50w-56rounded-lgbordertheme-bordertheme-surfacep-2shadow-lg"
                     >
 
                       <p
-                        className="
-                          px-2
-                          py-1
-                          text-xs
-                          font-medium
-                          theme-text-secondary
-                        "
+                        className=" px-2 py-1 text-xs font-medium theme-text-secondary"
                       >
                         Assign Member
                       </p>
 
                       {loadingMembers ? (
                         <p
-                          className="
-                            px-2
-                            py-2
-                            text-sm
-                            theme-text-secondary
-                          "
+                          className=" px-2 py-2 text-sm theme-text-secondary"
                         >
                           Loading members...
                         </p>
                       ) : members.length ===
                         0 ? (
                         <p
-                          className="
-                            px-2
-                            py-2
-                            text-sm
-                            theme-text-secondary
-                          "
+                          className=" px-2 py-2 text-sm theme-text-secondary"
                         >
                           No members found.
                         </p>
                       ) : (
                         <div
-                          className="
-                            max-h-48
-                            overflow-y-auto
-                          "
+                          className=" max-h-48 overflow-y-auto "
                         >
 
                           {members.map(
@@ -794,24 +704,10 @@ export default function TaskSection({
                                   assigningId ===
                                   task.id
                                 }
-                                className="
-                                  flex
-                                  w-full
-                                  flex-col
-                                  rounded-md
-                                  px-2
-                                  py-2
-                                  text-left
-                                  hover:bg-black/5
-                                  dark:hover:bg-white/10
-                                  disabled:opacity-50
-                                "
+                                className=" flex w-full flex-col rounded-md px-2 py-2 text-left hover:bg-black/5 dark:hover:bg-white/10 disabled:opacity-50"
                               >
                                 <span
-                                  className="
-                                    text-sm
-                                    theme-text
-                                  "
+                                  className=" text-sm theme-text"
                                 >
                                   {
                                     user.name
@@ -819,10 +715,7 @@ export default function TaskSection({
                                 </span>
 
                                 <span
-                                  className="
-                                    text-xs
-                                    theme-text-secondary
-                                  "
+                                  className=" text-xs theme-text-secondary "
                                 >
                                   {
                                     user.email
@@ -851,18 +744,7 @@ export default function TaskSection({
                               assigningId ===
                               task.id
                             }
-                            className="
-                              mt-1
-                              w-full
-                              border-t
-                              theme-border
-                              px-2
-                              pt-2
-                              text-left
-                              text-xs
-                              text-red-600
-                              hover:underline
-                            "
+                            className=" mt-1 w-full border-t theme-border px-2 pt-2 text-left text-xs text-red-600 hover:underline"
                           >
                             Remove member
                           </button>
@@ -886,12 +768,7 @@ export default function TaskSection({
               {/* ACTIONS */}
 
               <div
-                className="
-                  relative
-                  flex
-                  items-center
-                  justify-center
-                "
+                className=" relative flex items-center justify-center"
               >
 
                 <button
@@ -906,16 +783,7 @@ export default function TaskSection({
                         : task.id
                     );
                   }}
-                  className="
-                    flex
-                    items-center
-                    justify-center
-                    rounded-md
-                    p-1
-                    theme-text-secondary
-                    hover:bg-black/5
-                    dark:hover:bg-white/10
-                  "
+                  className=" flex items-center justify-center rounded-md p-1 theme-text-secondary hover:bg-black/5 dark:hover:bg-white/10"
                   aria-label="Task actions"
                 >
                   <MoreHorizontal
@@ -928,19 +796,7 @@ export default function TaskSection({
                 {openMenuId ===
                   task.id && (
                   <div
-                    className="
-                      absolute
-                      right-0
-                      top-8
-                      z-50
-                      w-36
-                      rounded-lg
-                      border
-                      theme-border
-                      theme-surface
-                      py-1
-                      shadow-lg
-                    "
+                    className=" absolute right-0 top-8 z-50 w-36 rounded-lg border theme-border theme-surface py-1 shadow-lg"
                   >
 
                     {/* EDIT */}
@@ -950,19 +806,7 @@ export default function TaskSection({
                       onClick={() =>
                         handleEdit(task)
                       }
-                      className="
-                        flex
-                        w-full
-                        items-center
-                        gap-2
-                        px-3
-                        py-2
-                        text-left
-                        text-sm
-                        theme-text
-                        hover:bg-black/5
-                        dark:hover:bg-white/10
-                      "
+                      className=" flex w-full items-center gap-2 px-3 py-2 text-left text-sm theme-text hover:bg-black/5 dark:hover:bg-white/10"
                     >
                       <Pencil
                         size={15}
@@ -984,19 +828,7 @@ export default function TaskSection({
                         deletingId ===
                         task.id
                       }
-                      className="
-                        flex
-                        w-full
-                        items-center
-                        gap-2
-                        px-3
-                        py-2
-                        text-left
-                        text-sm
-                        text-red-600
-                        hover:bg-red-50
-                        disabled:opacity-50
-                      "
+                      className=" flex w-full items-center gap-2 px-3 py-2 text-left text-sm text-red-600 hover:bg-red-50 disabled:opacity-50"
                     >
                       <Trash2
                         size={15}
@@ -1023,20 +855,7 @@ export default function TaskSection({
             onClick={() => {
               onAddTask?.();
             }}
-            className="
-              flex
-              w-full
-              items-center
-              gap-2
-              px-3
-              py-2
-              text-left
-              text-sm
-              theme-text-secondary
-              transition
-              hover:bg-black/5
-              dark:hover:bg-white/10
-            "
+            className=" flex w-full items-center gap-2 px-3 py-2 text-left text-sm theme-text-secondary transition hover:bg-black/5 dark:hover:bg-white/10"
           >
             <Plus size={15} />
 

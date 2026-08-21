@@ -1,5 +1,6 @@
 "use client";
 
+import API_URL from "@/lib/api";
 import { ChevronDown, ChevronRight, MoreHorizontal, Plus, Pencil, Trash2,} from "lucide-react";
 import { useState } from "react";
 
@@ -113,7 +114,7 @@ export default function ProjectSection({ title, projects, onDeleteProject, onEdi
       }
 
       const response = await fetch(
-        `http://localhost:3004/projects/${projectId}?userId=${encodeURIComponent(
+        `${API_URL}/projects/${projectId}?userId=${encodeURIComponent(
           userId
         )}`,
         {
